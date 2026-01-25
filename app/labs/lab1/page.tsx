@@ -313,14 +313,22 @@ export default function Lab1() {
       to get dummy text
       <br />
       <br />
-      My name is Christopher Wright-Williams 
+      My name is Christopher Wright-Williams
       <br />
       Please{" "}
-      <a href="https://github.com/Rat719/kanbaz-node-server-app" id="wd-github">
+      <a href="https://github.com/Rat719/kambaz-next-js/tree/a1" id="wd-github">
         click here
       </a>{" "}
       to visit my GitHub repo.
       <br />
+      <br />
+      Link to my vercel application:{" "}
+      <a
+        href="https://kambaz-next-js-git-a1-christopher-wright-williams-projects.vercel.app"
+        id="wd-vercel"
+      >
+        click here
+      </a>
     </div>
   );
 }
