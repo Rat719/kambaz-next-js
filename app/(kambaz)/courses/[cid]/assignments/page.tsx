@@ -39,8 +39,7 @@ export default function Assignments() {
           Multiple Modules | <b>Not available until</b> May 13 at 12:00am |
           <br />
           <b>Due</b> May 20 at 11:59pm | 100 pts
-        </li>
-        
+        </li>       
         <li className="wd-assignment-list-item">
           <Link 
             href="/courses/1234/assignments/125"
