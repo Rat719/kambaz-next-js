@@ -2,14 +2,14 @@ import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
 import { FaAlignJustify } from "react-icons/fa6";
 
-export default async function CourseLayout({
+export default function CourseLayout({
   children,
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ cid: string }>;
+  params: { cid: string };  // No Promise
 }) {
-  const { cid } = await params;
+  const { cid } = params;  // No await
 
   return (
     <div id="wd-courses">
