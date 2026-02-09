@@ -51,7 +51,7 @@ export default function KambazNavigation() {
 
       <ListGroupItem className="border-0 bg-black text-center">
         <Link
-          href="/courses"
+          href="/dashboard"
           id="wd-courses-link"
           className="text-danger text-decoration-none"
         >
