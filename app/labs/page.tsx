@@ -2,6 +2,15 @@ import Link from "next/link";
 export default function labs() {
   return (
     <div id="wd-labs">
+          <h1>Christopher Wright-Williams</h1>
+      <a 
+        id="wd-github" 
+        href="https://github.com/Rat719/kambaz-next-js/tree/a2"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        My GitHub Repository
+      </a>
       <h1>Labs</h1>
       <ul>
         <li>
