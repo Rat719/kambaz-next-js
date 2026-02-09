@@ -1,17 +1,9 @@
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import ModulesControls from "./ModulesControls";
-import LessonControlButtons from "./LessonControlButtons";
+import ModuleControlButtons from "./ModuleControlButtons";
 import { BsGripVertical } from "react-icons/bs";
+import LessonControlButtons from "./LessonControlButtons";
 
-function ModuleControlButtons() {
-  return (
-    <div className="float-end">
-      <button type="button" className="btn btn-sm btn-light border-0 me-1">Add</button>
-      <button type="button" className="btn btn-sm btn-light border-0 me-1">Edit</button>
-      <button type="button" className="btn btn-sm btn-light border-0">Delete</button>
-    </div>
-  );
-}
 
 export default function Modules() {
   return (
