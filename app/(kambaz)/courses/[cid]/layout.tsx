@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
+import Breadcrumb from "./Breadcrumb";
 import { FaAlignJustify } from "react-icons/fa6";
+import { courses } from "../../database";
 
 export default async function CourseLayout({
   children,
@@ -10,12 +12,12 @@ export default async function CourseLayout({
   params: Promise<{ cid: string }>;
 }) {
   const { cid } = await params;
-
+  const course = courses.find((course) => course._id === cid);
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
-        Course {cid}
+        <Breadcrumb course={course} />
       </h2>
       <hr />
       <div className="d-flex">

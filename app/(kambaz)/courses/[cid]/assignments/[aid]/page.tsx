@@ -1,13 +1,33 @@
-import { Form, Button } from "react-bootstrap";
+"use client";
+import { Button } from "react-bootstrap";
+import { useParams } from "next/navigation";
+import * as db from "../../../../database";
+import Link from "next/link";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+  availableDate: string;
+  dueDate: string;
+  points: number;
+}
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = db.assignments.find((a: Assignment) => a._id === aid);
+
   return (
     <div id="wd-assignments-editor" className="p-3">
       <div className="mb-3">
         <label htmlFor="wd-name" className="form-label">
           Assignment Name
         </label>
-        <input id="wd-name" className="form-control" defaultValue="A1" />
+        <input
+          id="wd-name"
+          className="form-control"
+          defaultValue={assignment?.title}
+        />
       </div>
 
       <div className="mb-3">
@@ -18,17 +38,7 @@ export default function AssignmentEditor() {
           id="wd-description"
           className="form-control"
           rows={10}
-          defaultValue={`The assignment is available online
-
-Submit a link to the landing page of your Web application running on Netlify.
-
-The landing page should include the following:
-- Your full name and section
-- Links to each of the lab assignments
-- Link to the Kambaz application
-- Links to all relevant source code repositories
-
-The Kambaz application should include a link to navigate back to the landing page.`}
+          defaultValue={assignment?.description}
         />
       </div>
 
@@ -37,7 +47,11 @@ The Kambaz application should include a link to navigate back to the landing pag
           Points
         </label>
         <div className="col-sm-10">
-          <input id="wd-points" className="form-control" defaultValue={100} />
+          <input
+            id="wd-points"
+            className="form-control"
+            defaultValue={assignment?.points}
+          />
         </div>
       </div>
 
@@ -82,7 +96,6 @@ The Kambaz application should include a link to navigate back to the landing pag
               <option value="In Person">In Person</option>
               <option value="Paper">Paper</option>
             </select>
-
             <div>
               <strong>Online Entry Options</strong>
               <div className="form-check mt-2">
@@ -161,41 +174,37 @@ The Kambaz application should include a link to navigate back to the landing pag
                 defaultValue="Everyone"
               />
             </div>
-
             <div className="mb-3">
               <label htmlFor="wd-due-date" className="form-label">
                 Due
               </label>
               <input
-                type="datetime-local"
+                type="text"
                 id="wd-due-date"
                 className="form-control"
-                defaultValue="2024-05-13T23:59"
+                defaultValue={assignment?.dueDate}
               />
             </div>
-
             <div className="row">
               <div className="col-md-6 mb-3">
                 <label htmlFor="wd-available-from" className="form-label">
                   Available from
                 </label>
                 <input
-                  type="datetime-local"
+                  type="text"
                   id="wd-available-from"
                   className="form-control"
-                  defaultValue="2024-05-06T00:00"
+                  defaultValue={assignment?.availableDate}
                 />
               </div>
-
               <div className="col-md-6 mb-3">
                 <label htmlFor="wd-available-until" className="form-label">
                   Until
                 </label>
                 <input
-                  type="datetime-local"
+                  type="text"
                   id="wd-available-until"
                   className="form-control"
-                  defaultValue="2024-05-20T23:59"
                 />
               </div>
             </div>
@@ -206,10 +215,14 @@ The Kambaz application should include a link to navigate back to the landing pag
       <hr />
 
       <div className="d-flex justify-content-end">
-        <Button variant="secondary" className="me-2">
-          Cancel
-        </Button>
-        <Button variant="danger">Save</Button>
+        <Link href={`/courses/${cid}/assignments`}>
+          <Button variant="secondary" className="me-2">
+            Cancel
+          </Button>
+        </Link>
+        <Link href={`/courses/${cid}/assignments`}>
+          <Button variant="danger">Save</Button>
+        </Link>
       </div>
     </div>
   );
