@@ -1,6 +1,6 @@
 export default function VariableTypes() {
-  const numberVariable = 123;
-  const floatingPointNumber = 234.345;
+  let numberVariable = 123;
+  let floatingPointNumber = 234.345;
   const true1 = true;
   const false1 = false;
   const false2 = true1 && false1;
