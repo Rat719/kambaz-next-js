@@ -1,12 +1,18 @@
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { FormControl } from "react-bootstrap";
 export default function DateStateVariable() {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setStartDate(new Date());
+  }, []);
   const dateObjectToHtmlDateString = (date: Date) => {
     return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? 0 : ""}${
       date.getMonth() + 1
     }-${date.getDate() + 1 < 10 ? 0 : ""}${date.getDate() + 1}`;
   };
+  if (!startDate) return null;
   return (
     <div id="wd-date-state-variables">
       <h2>Date State Variables</h2>
@@ -17,4 +23,7 @@ export default function DateStateVariable() {
         defaultValue={dateObjectToHtmlDateString(startDate)}
         onChange={(e) => setStartDate(new Date(e.target.value))}
       />
-<hr/></div>);}
+      <hr/>
+    </div>
+  );
+}
