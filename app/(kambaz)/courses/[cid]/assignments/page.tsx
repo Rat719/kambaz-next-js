@@ -8,7 +8,9 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import * as db from "../../../database";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./reducer";
+import { RootState } from "../../../store";
 
 interface Assignment {
   _id: string;
@@ -22,12 +24,12 @@ interface Assignment {
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments;
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
 
   return (
     <div id="wd-assignments">
       <AssignmentsControls />
-      <br /><br /><br /><br />
       <ListGroup className="rounded-0" id="wd-assignments-list">
         <ListGroupItem className="p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary d-flex align-items-center">
@@ -51,10 +53,8 @@ export default function Assignments() {
                   <BsGripVertical className="me-2 fs-3" />
                   <FaRegEdit className="me-3 fs-5 text-success" />
                   <div className="flex-grow-1">
-                    <Link
-                      href={`/courses/${cid}/assignments/${assignment._id}`}
-                      className="wd-assignment-link text-dark text-decoration-none"
-                    >
+                    <Link href={`/courses/${cid}/assignments/${assignment._id}`}
+                      className="wd-assignment-link text-dark text-decoration-none">
                       <strong>{assignment.title}</strong>
                     </Link>
                     <br />
@@ -63,7 +63,10 @@ export default function Assignments() {
                     <br />
                     <strong>Due</strong> {assignment.dueDate} | {assignment.points} pts
                   </div>
-                  <AssignmentControlButtons />
+                  <AssignmentControlButtons
+                    assignmentId={assignment._id}
+                    deleteAssignment={(id) => dispatch(deleteAssignment(id))}
+                  />
                 </ListGroupItem>
               ))}
           </ListGroup>
