@@ -5,7 +5,7 @@ export default function labs() {
           <h1>Christopher Wright-Williams</h1>
       <a 
         id="wd-github" 
-        href="https://github.com/Rat719/kambaz-next-js/tree/a2"
+        href="https://github.com/Rat719/kambaz-next-js"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -28,9 +28,10 @@ export default function labs() {
             Lab 3: JavaScript Fundamentals{" "}
           </Link>
         </li>
+        
         <li>
-          <Link href="/" id="wd-home-link">
-            Kambaz{" "}
+          <Link href="/labs/lab4" id="wd-lab4-link">
+            Lab 4 {" "}
           </Link>
         </li>
       </ul>

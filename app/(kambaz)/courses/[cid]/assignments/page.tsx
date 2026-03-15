@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import AssignmentsControls from "./AssignmentsControls";
@@ -17,6 +18,14 @@ interface Assignment {
   description: string; availableDate: string;
   dueDate: string; points: number;
 }
+
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return "";
+  if (dateStr.includes("at")) return dateStr;
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return dateStr;
+  return date.toLocaleDateString("en-US", { month: "long", day: "numeric" }) + " at 11:59pm";
+};
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -61,9 +70,9 @@ export default function Assignments() {
                     )}
                     <br />
                     <span className="text-danger">Multiple Modules</span> |{" "}
-                    <strong>Not available until</strong> {assignment.availableDate}
+                    <strong>Not available until</strong> {formatDate(assignment.availableDate)}
                     <br />
-                    <strong>Due</strong> {assignment.dueDate} | {assignment.points} pts
+                    <strong>Due</strong> {formatDate(assignment.dueDate)} | {assignment.points} pts
                   </div>
                   {isFaculty && (
                     <AssignmentControlButtons
