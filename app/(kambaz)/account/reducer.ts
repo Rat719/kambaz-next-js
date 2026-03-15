@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentUser: typeof window !== "undefined"
-    ? JSON.parse(localStorage.getItem("currentUser") || "null")
-    : null,
+  currentUser: null,
 };
 
 const accountSlice = createSlice({
@@ -12,13 +10,6 @@ const accountSlice = createSlice({
   reducers: {
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
-      if (typeof window !== "undefined") {
-        if (action.payload) {
-          localStorage.setItem("currentUser", JSON.stringify(action.payload));
-        } else {
-          localStorage.removeItem("currentUser");
-        }
-      }
     },
   },
 });

@@ -14,16 +14,12 @@ export default function ModuleControlButtons({
   editModule: (moduleId: string) => void;
 }) {
   return (
-    <div className="float-end">
-      <FaPencil
-        onClick={() => editModule(moduleId)}
-        className="text-primary me-3"
-      />
-      <FaTrash
-        className="text-danger me-2 mb-1"
-        onClick={() => deleteModule(moduleId)}
-      />
-      <BsPlus className="fs-4" />
+    <div className="d-flex align-items-center">
+      <FaPencil onClick={() => editModule(moduleId)}
+        className="text-primary me-3" style={{ cursor: "pointer" }} />
+      <FaTrash className="text-danger me-3"
+        onClick={() => deleteModule(moduleId)} style={{ cursor: "pointer" }} />
+      <BsPlus className="fs-4 me-1" />
       <GreenCheckmark />
       <IoEllipsisVertical className="fs-4" />
     </div>
