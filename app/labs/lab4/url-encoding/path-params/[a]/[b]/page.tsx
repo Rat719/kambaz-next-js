@@ -1,6 +1,11 @@
-export default function QueryCalculator({ searchParams }: { searchParams: { a?: string; b?: string } }) {
-  const aRaw = searchParams.a || "0";
-  const bRaw = searchParams.b || "0";
+export default async function QueryCalculator({
+  searchParams,
+}: {
+  searchParams: Promise<{ a?: string; b?: string }>;
+}) {
+  const { a: aParam, b: bParam } = await searchParams;
+  const aRaw = aParam || "0";
+  const bRaw = bParam || "0";
   const a = parseFloat(aRaw);
   const b = parseFloat(bRaw);
   const sum = a + b;
