@@ -1,12 +1,6 @@
-"use client";
-import dynamic from "next/dynamic";
-
-const QueryCalculator = dynamic(() => Promise.resolve(function QueryCalculator() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { useSearchParams } = require("next/navigation");
-  const searchParams = useSearchParams();
-  const aRaw = searchParams.get("a") || "0";
-  const bRaw = searchParams.get("b") || "0";
+export default function QueryCalculator({ searchParams }: { searchParams: { a?: string; b?: string } }) {
+  const aRaw = searchParams.a || "0";
+  const bRaw = searchParams.b || "0";
   const a = parseFloat(aRaw);
   const b = parseFloat(bRaw);
   const sum = a + b;
@@ -19,8 +13,4 @@ const QueryCalculator = dynamic(() => Promise.resolve(function QueryCalculator()
       <h2 style={{ color: "green" }}>Sum = {sum}</h2>
     </div>
   );
-}), { ssr: false });
-
-export default function QueryCalculatorPage() {
-  return <QueryCalculator />;
 }
