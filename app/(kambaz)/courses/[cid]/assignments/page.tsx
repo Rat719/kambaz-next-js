@@ -10,8 +10,10 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
 import { RootState } from "../../../store";
+import { useEffect } from "react";
+import * as client from "./client";
 
 interface Assignment {
   _id: string; title: string; course: string;
@@ -33,6 +35,20 @@ export default function Assignments() {
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   const isFaculty = (currentUser as any)?.role === "FACULTY";
   const dispatch = useDispatch();
+
+  const fetchAssignments = async () => {
+    const data = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(data));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, [cid]);
+
+  const onDeleteAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
 
   return (
     <div id="wd-assignments">
@@ -77,7 +93,7 @@ export default function Assignments() {
                   {isFaculty && (
                     <AssignmentControlButtons
                       assignmentId={assignment._id}
-                      deleteAssignment={(id) => dispatch(deleteAssignment(id))}
+                      deleteAssignment={(id) => onDeleteAssignment(id)}
                     />
                   )}
                 </ListGroupItem>

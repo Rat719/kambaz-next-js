@@ -7,6 +7,8 @@ import { addAssignment, updateAssignment } from "../reducer";
 import { RootState } from "../../../../store";
 import { useState, useRef } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
+import * as client from "../client";
+import { setAssignments } from "../reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -34,14 +36,16 @@ export default function AssignmentEditor() {
   const availableFromRef = useRef<HTMLInputElement>(null);
   const availableUntilRef = useRef<HTMLInputElement>(null);
 
-  const handleSave = () => {
-    if (existingAssignment) {
-      dispatch(updateAssignment(assignment));
-    } else {
-      dispatch(addAssignment({ ...assignment, course: cid }));
-    }
-    router.push(`/courses/${cid}/assignments`);
-  };
+ const handleSave = async () => {
+  if (existingAssignment) {
+    const updated = await client.updateAssignment(assignment);
+    dispatch(updateAssignment(updated));
+  } else {
+    const created = await client.createAssignment(cid as string, { ...assignment, course: cid });
+    dispatch(addAssignment(created));
+  }
+  router.push(`/courses/${cid}/assignments`);
+};
 
   return (
     <div id="wd-assignments-editor" className="p-3">
