@@ -8,14 +8,9 @@ import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateModule,
-  editModule,
-  setModules,
-} from "./reducer";
+import { updateModule, editModule, setModules } from "./reducer";
 import { RootState } from "../../../store";
 import * as client from "../../client";
-import { on } from "events";
 
 interface Lesson {
   _id: string;
@@ -36,7 +31,9 @@ export default function Modules() {
   const { currentUser } = useSelector(
     (state: RootState) => state.accountReducer,
   );
-  const isFaculty = (currentUser as any)?.role === "FACULTY";
+
+  const isFaculty = (currentUser as any)?.role !== "STUDENT";
+
   const dispatch = useDispatch();
 
   const onUpdateModule = async (module: any) => {
