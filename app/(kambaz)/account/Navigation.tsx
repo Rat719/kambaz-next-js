@@ -1,30 +1,34 @@
-import { ListGroup, ListGroupItem } from "react-bootstrap";
+"use client";
+
 import Link from "next/link";
+import { Nav, NavItem, NavLink } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export default function AccountNavigation() {
+  const { currentUser } = useSelector(
+    (state: RootState) => state.accountReducer
+  );
+
   return (
-    <ListGroup className="wd list-group fs-5 rounded-0">
-      <Link
-        href="/account/signin"
-        id="wd-signin-link"
-        className="list-group-item border-0 text-danger"
-      >
-        Signin
-      </Link>
-      <Link
-        href="/account/signup"
-        id="wd-signup-link"
-        className="list-group-item border-0 text-danger"
-      >
-        Signup
-      </Link>
-      <Link
-        href="/account/profile"
-        id="wd-profile-link"
-        className="list-group-item border-0 text-danger"
-      >
-        Profile
-      </Link>
-    </ListGroup>
+    <Nav variant="pills" className="flex-column">
+      <NavItem>
+        <NavLink as={Link} href="/account/signin">Signin</NavLink>
+      </NavItem>
+
+      <NavItem>
+        <NavLink as={Link} href="/account/signup">Signup</NavLink>
+      </NavItem>
+
+      <NavItem>
+        <NavLink as={Link} href="/account/profile">Profile</NavLink>
+      </NavItem>
+
+      {currentUser && currentUser.role === "ADMIN" && (
+        <NavItem>
+          <NavLink as={Link} href="/account/users">Users</NavLink>
+        </NavItem>
+      )}
+    </Nav>
   );
 }
