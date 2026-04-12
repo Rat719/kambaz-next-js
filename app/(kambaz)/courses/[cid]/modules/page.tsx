@@ -32,12 +32,12 @@ export default function Modules() {
     (state: RootState) => state.accountReducer,
   );
 
-  const isFaculty = (currentUser as any)?.role !== "STUDENT";
+  const isFaculty = ["FACULTY", "ADMIN"].includes((currentUser as any)?.role);
 
   const dispatch = useDispatch();
 
   const onUpdateModule = async (module: any) => {
-    await client.updateModule(module);
+    await client.updateModule(cid as string, module);
     const newModules = modules.map((m: any) =>
       m._id === module._id ? module : m,
     );
@@ -45,7 +45,7 @@ export default function Modules() {
   };
 
   const onRemoveModule = async (moduleId: string) => {
-    await client.deleteModule(moduleId);
+    await client.deleteModule(cid as string, moduleId);
     dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
   };
 

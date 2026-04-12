@@ -33,7 +33,7 @@ export default function Assignments() {
   const { cid } = useParams();
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const isFaculty = (currentUser as any)?.role === "FACULTY";
+  const isFaculty = ["FACULTY", "ADMIN"].includes((currentUser as any)?.role);
   const dispatch = useDispatch();
 
   const fetchAssignments = async () => {
@@ -68,9 +68,7 @@ export default function Assignments() {
             </div>
           </div>
           <ListGroup className="rounded-0">
-            {assignments
-              .filter((assignment: Assignment) => assignment.course === cid)
-              .map((assignment: Assignment) => (
+            {assignments.map((assignment: Assignment) => (
                 <ListGroupItem key={assignment._id}
                   className="wd-assignment-list-item p-3 ps-1 d-flex align-items-start">
                   <BsGripVertical className="me-2 fs-3" />

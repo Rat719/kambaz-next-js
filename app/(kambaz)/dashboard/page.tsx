@@ -65,7 +65,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchCourses();
-    fetchEnrollments();
+    if (currentUser) {
+      fetchEnrollments();
+    }
   }, [currentUser]);
 
   const onAddNewCourse = async () => {
