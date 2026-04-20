@@ -1,0 +1,1 @@
+export { default } from "../[qid]/edit/page";
