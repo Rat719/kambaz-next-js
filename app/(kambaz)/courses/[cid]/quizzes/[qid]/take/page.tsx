@@ -2,7 +2,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../../store";
+import { RootState } from "../../../../../store";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { addAttempt } from "../../reducer";
